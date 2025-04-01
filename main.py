@@ -3,6 +3,8 @@ import random
 
 # Put all the functions into another file and import them
 import functions
+import treasureHunt
+
 
 # Define two Dice
 small_dice_options = list(range(1, 7))
@@ -135,6 +137,8 @@ if not input_invalid:
     # Use Loot
     belt, health_points = functions.use_loot(belt, health_points)
 
+    treasureHunt.play_treasure_hunt()
+
     print("    ------------------------------------------------------------------")
     print("    |", end="    ")
     input("Analyze the roll (Press enter)")
@@ -165,7 +169,7 @@ if not input_invalid:
     print(ascii_image4)
     power_roll = random.choice(["Fire Magic", "Freeze Time", "Super Hearing"])
 
-    # Increase the monster’s combat strength by its power
+    # Increase the monster's combat strength by its power
     m_combat_strength += min(6, m_combat_strength + monster_powers[power_roll])
     print("    |    The monster's combat strength is now " + str(
         m_combat_strength) + " using the " + power_roll + " magic power")
