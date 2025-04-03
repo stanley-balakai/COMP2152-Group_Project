@@ -1,4 +1,5 @@
 from baseLevel import Level
+from treasureHunt import get_random_treasure
 
 
 class ForestLevel(Level):
@@ -14,8 +15,9 @@ class ForestLevel(Level):
         if object_name == "Hidden Grove":
             print("You found a hidden clue about the monsters!")
         elif object_name == "Treasure Chest":
-            print("The chest contains a Healing Potion!")
-            self.hero_inventory.append("Healing Potion")
+            item = get_random_treasure()
+            print("The chest contains " + item + "!")
+            self.hero_inventory.append(item)
             self.level_objects.remove(object_name)  # Optional object, no impact on required_objects
         elif object_name == "Puzzle Wall":
             puzzle_input = input("Solve the puzzle (Enter the sequence 'fire-water-earth'): ")

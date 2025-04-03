@@ -1,4 +1,5 @@
 from baseLevel import Level
+from treasureHunt import get_random_treasure
 
 
 class CaveLevel(Level):
@@ -19,8 +20,8 @@ class CaveLevel(Level):
             self.hero_inventory.append("Rusty Key")
             self.level_objects.remove(object_name)  # Optional object
         elif object_name == "Hidden Passage":
-            if "Puzzle Key" in self.hero_inventory:
-                print("You clear the rubble with the Puzzle Key and access the Hidden Passage!")
+            if "Rusty Key" in self.hero_inventory:
+                print("You clear the rubble with the Rusty Key and access the Hidden Passage!")
                 self.level_objects.remove(object_name)  # Remove the Hidden Passage once accessed
                 self.required_objects.discard(object_name)  # Mark as completed if it's critical
             else:
