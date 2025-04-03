@@ -4,7 +4,8 @@ import random
 # Put all the functions into another file and import them
 import functions
 import treasureHunt
-
+from caveLevel import CaveLevel
+from forestLevel import ForestLevel
 
 # Define two Dice
 small_dice_options = list(range(1, 7))
@@ -55,6 +56,36 @@ while input_invalid and i in range(5):
     else:
         input_invalid = False
         break
+
+# Allow the player to interact
+# Choose a level to play
+current_level_name = input("Choose your level: Forest or Cave? ").strip().lower()
+
+if current_level_name == "forest":
+    level = ForestLevel()
+elif current_level_name == "cave":
+    level = CaveLevel()
+else:
+    print("Invalid level. Starting in the Forest by default.")
+    level = ForestLevel()
+
+# Start navigating the level
+level.display_paths(int(combat_strength))  # Dynamically display paths based on hero stats
+
+quit = False
+while not level.completed:
+    object_to_explore = input("\nWhat would you like to do? (Type 'exit' to leave the level): ")
+    if object_to_explore.lower() == "exit":
+        print(f"You have chosen to exit {level.name}.")
+        quit = True
+        break  # Exit the loop and return to the main menu or a preparation phase
+    else:
+        level.explore_object(object_to_explore)
+        level.display_paths(int(combat_strength))  # Update paths after interactions
+
+if quit == False:
+    print("\nYou have successfully navigated the level and completed it!")
+
 
 if not input_invalid:
     input_invalid = False
