@@ -1,14 +1,17 @@
 from baseLevel import Level
+from monsterEncounter import monster_encounter
 from treasureHunt import get_random_treasure
 
 
 class ForestLevel(Level):
-    def __init__(self):
+    def __init__(self, combat_strength, m_combat_strength):
         super().__init__(
             "Forest Level",
             ["Forest Path", "Hidden Grove", "Treasure Chest", "Monster", "Puzzle Wall"],
             {"Monster", "Puzzle Wall"}  # Critical objectives for this level
         )
+        self.combat_strength = combat_strength
+        self.m_combat_strength = m_combat_strength
 
     def explore_object(self, object_name):
         print(f"\nExploring {object_name}...")
@@ -28,11 +31,13 @@ class ForestLevel(Level):
             else:
                 print("Incorrect sequence. Try again.")
         elif object_name == "Monster":
-            print("A wild monster blocks your way! You defeated it.")
-            # Start Monster Combat
+            print("A wild monster blocks your way! Before the fight, you check your gear...")
+            # Starts Monster Encounter
+            monster_encounter(self.combat_strength, self.m_combat_strength)
 
             self.level_objects.remove(object_name)
-            self.required_objects.discard(object_name)  # Mark the monster as completed
+            self.required_objects.discard(object_name)
+
         else:
             print("Exploring this object does not reveal anything useful.")
 
