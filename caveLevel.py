@@ -1,14 +1,17 @@
 from baseLevel import Level
+from monsterEncounter import monster_encounter
 from treasureHunt import get_random_treasure
 
 
 class CaveLevel(Level):
-    def __init__(self):
+    def __init__(self, combat_strength, m_combat_strength):
         super().__init__(
             "Cave Level",
             ["Dark Tunnel", "Puzzle Wall", "Monster", "Hidden Passage", "Treasure Chest"],
             {"Puzzle Wall", "Monster", "Hidden Passage"}  # Critical objectives for this level
         )
+        self.combat_strength = combat_strength
+        self.m_combat_strength = m_combat_strength
 
     def explore_object(self, object_name):
         print(f"\nExploring {object_name}...")
@@ -36,7 +39,10 @@ class CaveLevel(Level):
                 print("The sequence is wrong. The wall remains intact.")
         elif object_name == "Monster":
             print("A cave-dwelling monster awaits! Engage in combat to move forward.")
-            #Start Monster Combat
+            print("But first we must check your gear")
+            #Starts Monster Encounter
+            monster_encounter(self.combat_strength, self.m_combat_strength)
+
 
             self.level_objects.remove(object_name)
             self.required_objects.discard(object_name)  # Mark the monster as completed
