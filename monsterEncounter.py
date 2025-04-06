@@ -1,13 +1,15 @@
 import random
 
+final_hero_health = 20 # Need this for the chest encounter code
+
 def hero_attacks(combat_strength, monster_health, weapon_name):
-    attack = random.randint(2, combat_strength)
+    attack = random.randint(1, max(2, combat_strength))
     monster_health -= attack
     print(f"    |    Player's {weapon_name} ( {attack} ) ---> Monster (HP left: {max(monster_health, 0)} )")
     return max(monster_health, 0)
 
 def monster_attacks(m_combat_strength, hero_health, attack_name):
-    attack = random.randint(2, m_combat_strength)
+    attack = random.randint(1, max(2, m_combat_strength))
     hero_health -= attack
     print(f"    |    {attack_name} ( {attack} ) ---> Player (HP left: {max(hero_health, 0)} )")
     return max(hero_health, 0)
@@ -169,4 +171,6 @@ def monster_encounter(base_strength, base_monster_strength):
             print(f"The {monster} has been defeated!")
 
     print("You have survived the monster encounters!")
+    global final_hero_health
+    final_hero_health = hero_health
     return "victory", combat_strength, hero_health, belt
