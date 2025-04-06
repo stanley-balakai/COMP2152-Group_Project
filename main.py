@@ -6,6 +6,8 @@ import functions
 import treasureHunt
 from caveLevel import CaveLevel
 from forestLevel import ForestLevel
+import chestEncounter
+import monsterEncounter
 
 # Define two Dice
 small_dice_options = list(range(1, 7))
@@ -117,5 +119,27 @@ if not input_invalid:
 
     treasureHunt.play_treasure_hunt()
 
+print("\n    ------------------------------------------------------------------")
+print("    |    You walk into a mysterious chamber... several chests lie before you.")
 
+player_stats = {
+    "health": monsterEncounter.final_hero_health,
+    "strength": combat_strength,
+    "gold": 0,
+    "inventory": []
+}
 
+chests = chestEncounter.generate_chests(num_chests=3)
+
+for i, chest in enumerate(chests, 1):
+    print(f"\n    |    Chest #{i}")
+    input("    |    Press Enter to search this chest...")
+    chest.open(player_stats)
+    print(f"    |    Current HP: {player_stats['health']}")
+
+print("    ------------------------------------------------------------------")
+print("    |    Final Player Stats:")
+print(f"    |    Health: {player_stats['health']}")
+print(f"    |    Strength: {player_stats['strength']}")
+print(f"    |    Gold: {player_stats['gold']}")
+print(f"    |    Inventory: {player_stats['inventory']}")
